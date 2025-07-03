@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "948466822521",
+    "project_id": "controldistribution",
+    "storage_bucket": "controldistribution.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948466822521:android:fbefe709afb5161a8b13a8",
+        "android_client_info": {
+          "package_name": "com.cansa.distri"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXY6uGB5wzaxCSjXVTc1zEqn4SoZTrmYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
