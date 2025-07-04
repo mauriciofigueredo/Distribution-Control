@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.cansa.distri.ui.theme.ControlDistributionTheme
+import com.cansa.distri.views.LoginView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +21,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             ControlDistributionTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    val text: String =""
+                    val text2: String =""
+
+                    LoginView(onLoginClick = {text, text2 -> text+text2}, onRegisterClick = {}, modifier = Modifier.padding(innerPadding))
                 }
             }
         }
