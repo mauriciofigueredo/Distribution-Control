@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,11 +12,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.cansa.distri.viewModels.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginView(
-    onLoginClick: (String, String) -> Unit,
+    loginVM: LoginViewModel,
+    navController: NavController,
     onRegisterClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -59,7 +63,9 @@ fun LoginView(
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { onLoginClick(email, password) },
+            onClick = {
+                loginVM.login(email,password){ navController.navigate("Home")  }
+            },
             modifier = Modifier.fillMaxWidth(),
             enabled = email.isNotBlank() && password.isNotBlank()
         ) {
@@ -71,20 +77,13 @@ fun LoginView(
         TextButton(onClick = onRegisterClick) {
             Text("¿No tienes cuenta? Regístrate")
         }
+        if (loginVM.showAlert){
+            BasicAlertDialog(
+                onDismissRequest = { loginVM.showAlert = false },
+                title = {},
+                content = TODO()
+            )
+        }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewLoginScreen() {
-    LoginView(
-        onLoginClick = { email, password ->
-            // Simular lógica de login
-            println("Intentando iniciar sesión con: $email, $password")
-        },
-        onRegisterClick = {
-            // Simular navegación a pantalla de registro
-            println("Navegar a pantalla de registro")
-        }
-    )
-}
