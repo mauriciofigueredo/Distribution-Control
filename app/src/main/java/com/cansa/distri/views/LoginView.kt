@@ -8,10 +8,12 @@ import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.cansa.distri.viewModels.LoginViewModel
 
@@ -79,11 +81,33 @@ fun LoginView(
         }
         if (loginVM.showAlert){
             BasicAlertDialog(
-                onDismissRequest = { loginVM.showAlert = false },
-                title = {},
-                content = TODO()
-            )
-        }
+                onDismissRequest = {
+                // Dismiss the dialog when the user clicks outside the dialog or on the back
+                // button. If you want to disable that functionality, simply use an empty
+                // onDismissRequest.
+                    loginVM.showAlert = false
+
+                 }){
+                Surface(
+                    modifier = Modifier. wrapContentWidth().wrapContentHeight(),
+                    shape = MaterialTheme.shapes.large,
+                    tonalElevation = AlertDialogDefaults.TonalElevation
+                ) {
+                    Column(modifier = Modifier. padding(16.dp)) {
+                        Text(text ="Hubo un error", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        Spacer(modifier = Modifier. height(18.dp))
+                        Text(text ="Verifique su email y contraseña")
+                        Spacer(modifier = Modifier. height(24.dp))
+                        TextButton(onClick = { loginVM.showAlert = false },
+                            modifier = Modifier. align(Alignment. End)
+                        ) {
+                            Text("Aceptar")
+                        }
+                    }
+                }
+            }
+
+        }//If
     }
 }
 
