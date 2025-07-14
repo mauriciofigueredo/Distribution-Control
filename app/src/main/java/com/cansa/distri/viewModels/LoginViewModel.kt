@@ -35,6 +35,26 @@ class LoginViewModel: ViewModel(){
             }
         }
 
+    }//login
+
+    fun register(email: String, password: String, onSucces: ()->Unit){
+        viewModelScope.launch {
+            try {
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if(task.isSuccessful){
+                            onSucces()
+                        }else{
+                            Log.d("Error inicio de sesion","Verifique su email y contraseña")
+                            showAlert = true
+                        }
+                    }
+
+            }catch (e: Error){
+                Log.d("Ocurrio un error", "${e.message}")
+            }
+        }
+
     }
 
 }

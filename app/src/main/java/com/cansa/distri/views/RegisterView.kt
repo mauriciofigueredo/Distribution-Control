@@ -1,6 +1,7 @@
 package com.cansa.distri.views
 
-import androidx.compose.foundation.clickable
+
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -11,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -19,7 +19,7 @@ import com.cansa.distri.viewModels.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginView(
+fun RegisterView(
     loginVM: LoginViewModel,
     navController: NavController,
     onRegisterClick: () -> Unit,
@@ -27,6 +27,8 @@ fun LoginView(
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var passwordConfirm by remember { mutableStateOf("") }
+
 
     Column(
         modifier = Modifier
@@ -36,7 +38,7 @@ fun LoginView(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Bienvenido de nuevo",
+            text = "Regístrate",
             style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier.padding(bottom = 32.dp)
         )
@@ -62,6 +64,16 @@ fun LoginView(
             modifier = Modifier.fillMaxWidth()
         )
 
+        OutlinedTextField(
+            value = passwordConfirm,
+            onValueChange = { passwordConfirm = it },
+            label = { Text("Confirmar contraseña") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
@@ -69,25 +81,25 @@ fun LoginView(
                 loginVM.login(email,password){ navController.navigate("Home")  }
             },
             modifier = Modifier.fillMaxWidth(),
-            enabled = email.isNotBlank() && password.isNotBlank()
+            enabled = email.isNotBlank() && password.isNotBlank() && (password == passwordConfirm)
         ) {
-            Text("Iniciar Sesión")
+            Text("Registrarse")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        TextButton(onClick = { navController.navigate("Register") }) {
-            Text("¿No tienes cuenta? Regístrate")
+        TextButton(onClick = { navController.navigate("Login") }) {
+            Text("¿Ya tienes cuenta? Inicia sesión")
         }
         if (loginVM.showAlert){
             BasicAlertDialog(
                 onDismissRequest = {
-                // Dismiss the dialog when the user clicks outside the dialog or on the back
-                // button. If you want to disable that functionality, simply use an empty
-                // onDismissRequest.
+                    // Dismiss the dialog when the user clicks outside the dialog or on the back
+                    // button. If you want to disable that functionality, simply use an empty
+                    // onDismissRequest.
                     loginVM.showAlert = false
 
-                 }){
+                }){
                 Surface(
                     modifier = Modifier
                         .wrapContentWidth()

@@ -11,6 +11,7 @@ import com.cansa.distri.viewModels.LoginViewModel
 import com.cansa.distri.viewModels.PointViewModel
 import com.cansa.distri.views.Homeview
 import com.cansa.distri.views.LoginView
+import com.cansa.distri.views.RegisterView
 
 @Composable
 fun NavManager(loginVM: LoginViewModel, pointVM: PointViewModel, innerPadding : PaddingValues ){
@@ -18,12 +19,14 @@ fun NavManager(loginVM: LoginViewModel, pointVM: PointViewModel, innerPadding : 
     val navController = rememberNavController()
     NavHost(navController=navController, startDestination = "Login"){
         composable("Login"){
-            val text : String = ""
-            val text2 : String = ""
             LoginView(loginVM, navController, onRegisterClick = {}, modifier = Modifier.padding(innerPadding))
         }
 
         composable("Home") { Homeview() }
+
+        composable("Register"){
+            RegisterView(loginVM, navController, onRegisterClick = {}, modifier = Modifier.padding(innerPadding))
+        }
     }
 
 }
